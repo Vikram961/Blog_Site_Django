@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'ns)7*m9mz-jbyal4qv0izr&2c-6loop)qkq!r1!r8z7)oukz5i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vikblogproj.herokuapp.com/']
 
 
 # Application definition
@@ -74,10 +75,20 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': BASE_DIR / 'db.sqlite3',
+    #}
+#}
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default':{
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dfsp8ten9bgac2',
+        'USER': 'jcolymgsuytbnn',
+        'PASSWORD':'fc27ba3223f8749eb02ab59508ee2acb280003ec51bbcf0a93599c2520fbac31',
+        'HOST':'ec2-54-156-151-232.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -118,4 +129,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_URL = "/static/"
+django_heroku.settings(locals())
